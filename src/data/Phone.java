@@ -38,4 +38,12 @@ public class Phone {
         result = 31 * result + (phoneType != null ? phoneType.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Phone{" +
+                "number=" + number +
+                ", phoneType=" + phoneType +
+                '}';
+    }
 }

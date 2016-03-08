@@ -1,14 +1,16 @@
 package data;
 
+import java.util.List;
+
 /**
  * Created by Artem on 28.02.2016.
  */
 public class Contact {
     private String firstName;
     private String lastName;
-    Phone phones;
+    private List<Phone> phones;
 
-    public Contact(String firstName, String lastName, Phone phones) {
+    public Contact(String firstName, String lastName, List<Phone> phones) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phones = phones;
@@ -22,7 +24,7 @@ public class Contact {
         return lastName;
     }
 
-    public Phone getPhones() {
+    public List<Phone> getPhones() {
         return phones;
     }
 
@@ -45,5 +47,14 @@ public class Contact {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (phones != null ? phones.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phones=" + phones +
+                '}';
     }
 }
