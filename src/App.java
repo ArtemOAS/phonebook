@@ -6,6 +6,7 @@ import service.Writer;
 import service.impl.ContactPhoneImpl;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -18,27 +19,23 @@ public class App {
         phones.add(new Phone(555, PhoneType.FAX));
         phones.add(new Phone(555, PhoneType.HOME_PHONE));
 
-        Contact contact = new Contact("lalalala", "aaaaaaaaa",phones);
-        Contact contact1 = new Contact("rrrrr", "rtgfgdf",phones);
+        Contact contact = new Contact("lalalala", "aaaaaaaaa", phones);
+        Contact contact1 = new Contact("rrrrr", "rtgfgdf", phones);
         ContactPhone contactPhone = new ContactPhoneImpl();
-
-        ContactPhone<Contact> contacts = null;
-        contacts.add(contact);
-        contacts.add(contact1);
-
-        contacts.remove(contact);
 
         contactPhone.add(contact);
         contactPhone.add(contact1);
 
-        Writer fileWriter = new Writer();
+        contactPhone.write("output.csv", Arrays.asList(contact,contact1));
 
-        try {
-            fileWriter.write("output.csv", contacts);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Writer fileWriter = new Writer();
+//
+//        try {
+//            fileWriter.write("output.csv", Arrays.asList(contact,contact1));
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 }

@@ -8,4 +8,5 @@ public interface ContactPhone<E>{
     boolean add(Contact contact);
     boolean remove(Contact contact);
     Collection<Contact> search(Contact contact);
+    void write(String path, Collection<Object> contacts);
 }

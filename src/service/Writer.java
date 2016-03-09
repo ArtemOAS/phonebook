@@ -12,7 +12,7 @@ import java.util.Collection;
 public class Writer {
     private static final String SEPARATOR = ";";
 
-    public void write(String path, ContactPhone<Contact> contacts) throws IOException {
+    public void write(String path, Collection<Contact> contacts) throws IOException {
         File file = new File(path);
         if(file.isDirectory()){
             throw new WrongDestinationException("Can't write to "+ path);
@@ -26,9 +26,9 @@ public class Writer {
             pw.flush();}
     }
 
-    private String convertToCSV(ContactPhone<Contact> contacts){
+    private String convertToCSV(Collection<Contact> contacts){
         String result = "";
-        for (Contact contact: contacts){
+        for (Contact contact:contacts){
             result+=contact.getFirstName()+SEPARATOR+contact.getLastName()+SEPARATOR+
                     contact.getPhones()+"\n";
         }

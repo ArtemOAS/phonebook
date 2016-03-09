@@ -3,12 +3,17 @@ package service.impl;
 import data.Contact;
 import data.Phone;
 import service.ContactPhone;
+import service.exception.WrongDestinationException;
 
+import java.io.*;
 import java.util.*;
 
 public class ContactPhoneImpl implements ContactPhone {
+    private static final String SEPARATOR = ";";
 
-    private Map<Phone, Set<Contact>> phonesInContact = new HashMap<>();
+
+    public Map<Phone, Set<Contact>> phonesInContact = new HashMap<>();
+
 
     @Override
     public boolean add(Contact contact) {
@@ -44,9 +49,38 @@ public class ContactPhoneImpl implements ContactPhone {
     }
 
     @Override
+    public void write(String path, Collection collection) {
+        File file = new File(path);
+        if(file.isDirectory()){
+            throw new WrongDestinationException("Can't write to "+ path);
+        }
+        try {
+            try(
+                    FileOutputStream fos = new FileOutputStream(path);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    PrintWriter pw = new PrintWriter(oos);
+            ){
+                pw.println(convertToCSV(collection));
+                pw.flush();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String convertToCSV(Collection<Contact> collection){
+        String result = "";
+        for (Contact contact:collection){
+            result+=contact.getFirstName()+SEPARATOR+contact.getLastName()+SEPARATOR+
+                    contact.getPhones()+"\n";
+        }
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "ContactPhoneImpl{" +
                 "phonesInContact=" + phonesInContact +
                 '}';
     }
+
 }
