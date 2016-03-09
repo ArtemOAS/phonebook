@@ -1,5 +1,6 @@
 package service.impl;
 
+import com.sun.corba.se.impl.orbutil.ObjectWriter;
 import data.Contact;
 import data.Phone;
 import service.ContactPhone;
@@ -46,6 +47,11 @@ public class ContactPhoneImpl implements ContactPhone {
     public Collection<Contact> search(Contact contact) {
         Set<Contact> contacts = phonesInContact.get(contact);
         return contacts == null ? Collections.EMPTY_SET : contacts;
+    }
+
+    @Override
+    public void save(String path) {
+        
     }
 
     @Override
