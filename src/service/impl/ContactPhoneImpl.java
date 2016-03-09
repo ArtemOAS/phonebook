@@ -10,7 +10,6 @@ public class ContactPhoneImpl implements ContactPhone {
 
     private Map<Phone, Set<Contact>> phonesInContact = new HashMap<>();
 
-
     @Override
     public boolean add(Contact contact) {
         boolean flagIsAdd = false;
