@@ -15,29 +15,17 @@ import java.util.*;
 public class App {
     public static void main(String[] args) {
         List<Phone> phones = new ArrayList<>();
+        ContactPhone contactPhone = new ContactPhoneImpl();
 
         phones.add(new Phone(555, PhoneType.FAX));
         phones.add(new Phone(555, PhoneType.HOME_PHONE));
 
         Contact contact = new Contact("lalalala", "aaaaaaaaa", phones);
-        Contact contact1 = new Contact("rrrrr", "rtgfgdf", phones);
-        ContactPhone contactPhone = new ContactPhoneImpl();
-
-//        contactPhone.add(contact);
-        contactPhone.add(contact1);
-        contactPhone.remove(contact);
+        
+        contactPhone.add(contact);
+//        contactPhone.remove(contact);
 
         contactPhone.save("output.csv");
-
-
-//        Writer fileWriter = new Writer();
-//
-//        try {
-//            fileWriter.write("output.csv", Arrays.asList(contact,contact1));
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
     }
 }

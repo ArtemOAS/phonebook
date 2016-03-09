@@ -13,7 +13,7 @@ public class ContactPhoneImpl implements ContactPhone {
     private static final String SEPARATOR = ";";
 
 
-    public Map<Phone, Collection<Contact>> phonesInContact = new HashMap<>();
+    private Map<Phone, Collection<Contact>> phonesInContact = new HashMap<>();
 
 
     @Override
