@@ -23,10 +23,12 @@ public class App {
         Contact contact1 = new Contact("rrrrr", "rtgfgdf", phones);
         ContactPhone contactPhone = new ContactPhoneImpl();
 
-        contactPhone.add(contact);
+//        contactPhone.add(contact);
         contactPhone.add(contact1);
+        contactPhone.remove(contact);
 
-        contactPhone.write("output.csv", Arrays.asList(contact,contact1));
+        contactPhone.save("output.csv");
+
 
 //        Writer fileWriter = new Writer();
 //
