@@ -19,14 +19,14 @@ public class ContactPhoneImpl implements ContactPhone {
     @Override
     public boolean add(Contact contact) {
         boolean flagIsAdd = false;
-        for (Phone phone: contact.getPhones()) {
-            Collection<Contact> contacts = phonesInContact.get(contact);
-            if (contacts == null) {
-                contacts = new HashSet<>();
-                phonesInContact.put(phone, contacts);
+            for (Phone phone : contact.getPhone()) {
+                Collection<Contact> contacts = phonesInContact.get(phone);
+                if (contacts == null) {
+                    contacts = new HashSet<>();
+                    phonesInContact.put(phone, contacts);
+                }
+                flagIsAdd = contacts.add(contact);
             }
-            flagIsAdd = contacts.add(contact);
-        }
 
         return flagIsAdd;
     }
@@ -34,8 +34,8 @@ public class ContactPhoneImpl implements ContactPhone {
     @Override
     public boolean remove(Contact contact) {
         boolean flagIsDelete = false;
-        for (Phone phone: contact.getPhones()) {
-            Collection<Contact> contacts = phonesInContact.get(contact);
+        for (Phone phone: contact.getPhone()) {
+            Collection<Contact> contacts = phonesInContact.get(phone);
             if (contacts != null) {
                 flagIsDelete = contacts.remove(contact);
             }
@@ -76,10 +76,11 @@ public class ContactPhoneImpl implements ContactPhone {
     private String convertToCSV(Map<Phone, Collection<Contact>> phonesAndContact){
         String result = "";
 
-        for (Collection<Contact> contacts: phonesAndContact.values()){
+        for (Collection<Contact> contacts: phonesInContact.values()){
             for (Contact contact: contacts) {
-                result+=contact.getFirstName()+SEPARATOR+contact.getLastName()+SEPARATOR+
-                        contact.getPhones()+"\n";
+                result+=contact.getFirstName()+SEPARATOR+
+                        contact.getLastName()+SEPARATOR+
+                        contact.getPhone()+"\n";
             }
         }
         return result;

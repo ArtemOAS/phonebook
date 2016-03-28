@@ -29,8 +29,7 @@ public class Writer {
     private String convertToCSV(Collection<Contact> contacts){
         String result = "";
         for (Contact contact:contacts){
-            result+=contact.getFirstName()+SEPARATOR+contact.getLastName()+SEPARATOR+
-                    contact.getPhones()+"\n";
+            result+=contact.getFirstName()+SEPARATOR+contact.getLastName()+SEPARATOR+"\n";
         }
         return result;
     }

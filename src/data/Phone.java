@@ -1,5 +1,7 @@
 package data;
 
+import java.util.List;
+
 /**
  * Created by Artem on 28.02.2016.
  */
@@ -16,8 +18,16 @@ public class Phone {
         return number;
     }
 
+    public void setNumber(long number) {
+        this.number = number;
+    }
+
     public PhoneType getPhoneType() {
         return phoneType;
+    }
+
+    public void setPhoneType(PhoneType phoneType) {
+        this.phoneType = phoneType;
     }
 
     @Override
@@ -28,7 +38,7 @@ public class Phone {
         Phone phone = (Phone) o;
 
         if (number != phone.number) return false;
-        return phoneType != null ? phoneType.equals(phone.phoneType) : phone.phoneType == null;
+        return phoneType == phone.phoneType;
 
     }
 

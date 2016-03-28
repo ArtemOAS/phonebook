@@ -1,5 +1,8 @@
 package data;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.List;
 
 /**
@@ -8,12 +11,12 @@ import java.util.List;
 public class Contact {
     private String firstName;
     private String lastName;
-    private List<Phone> phones;
+    private List<Phone> phone;
 
-    public Contact(String firstName, String lastName, List<Phone> phones) {
+    public Contact(String firstName, String lastName, List<Phone> phone) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phones = phones;
+        this.phone = phone;
     }
 
     public String getFirstName() {
@@ -24,8 +27,8 @@ public class Contact {
         return lastName;
     }
 
-    public List<Phone> getPhones() {
-        return phones;
+    public List<Phone> getPhone() {
+        return phone;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class Contact {
 
         if (firstName != null ? !firstName.equals(contact.firstName) : contact.firstName != null) return false;
         if (lastName != null ? !lastName.equals(contact.lastName) : contact.lastName != null) return false;
-        return phones != null ? phones.equals(contact.phones) : contact.phones == null;
+        return phone != null ? phone.equals(contact.phone) : contact.phone == null;
 
     }
 
@@ -45,7 +48,7 @@ public class Contact {
     public int hashCode() {
         int result = firstName != null ? firstName.hashCode() : 0;
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (phones != null ? phones.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
     }
 
@@ -54,7 +57,7 @@ public class Contact {
         return "Contact{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phones=" + phones +
+                ", phone=" + phone +
                 '}';
     }
 }
