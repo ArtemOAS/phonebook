@@ -6,19 +6,19 @@ import java.util.List;
  * Created by Artem on 28.02.2016.
  */
 public class Phone {
-    private long number;
+    private String number;
     PhoneType phoneType;
 
-    public Phone(long number, PhoneType phoneType) {
+    public Phone(String number, PhoneType phoneType) {
         this.number = number;
         this.phoneType = phoneType;
     }
 
-    public long getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(long number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -37,14 +37,14 @@ public class Phone {
 
         Phone phone = (Phone) o;
 
-        if (number != phone.number) return false;
+        if (number != null ? !number.equals(phone.number) : phone.number != null) return false;
         return phoneType == phone.phoneType;
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (number ^ (number >>> 32));
+        int result = number != null ? number.hashCode() : 0;
         result = 31 * result + (phoneType != null ? phoneType.hashCode() : 0);
         return result;
     }
@@ -52,7 +52,7 @@ public class Phone {
     @Override
     public String toString() {
         return "Phone{" +
-                "number=" + number +
+                "number='" + number + '\'' +
                 ", phoneType=" + phoneType +
                 '}';
     }
