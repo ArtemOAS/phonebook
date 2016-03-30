@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -25,9 +26,9 @@
                <children>
                   <TableView fx:id="tableUsers" prefHeight="398.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="69.0" text="First Name" fx:id="firstNameColumn"/>
-                      <TableColumn prefWidth="65.0" text="Last Name" fx:id="lastNameColumn"/>
-                        <TableColumn prefWidth="65.0" text="Phone" fx:id="phonesColumn"/>
+                      <TableColumn fx:id="firstNameColumn" prefWidth="69.0" text="First Name" />
+                      <TableColumn fx:id="lastNameColumn" prefWidth="65.0" text="Last Name" />
+                        <TableColumn fx:id="phonesColumn" prefWidth="65.0" text="Phone" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
@@ -55,7 +56,7 @@
                            <HBox.margin>
                               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button layoutX="326.0" layoutY="359.0" mnemonicParsing="false" text="Delete">
+                        <Button layoutX="326.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" textOverrun="CLIP">
                            <HBox.margin>
                               <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                            </HBox.margin></Button>

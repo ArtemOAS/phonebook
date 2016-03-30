@@ -15,9 +15,9 @@ import org.apache.commons.csv.CSVRecord;
 import service.ContactPhone;
 import service.impl.ContactPhoneImpl;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,6 +46,20 @@ public class Controller {
         phonesColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("phone"));
 
         tableUsers.setItems(phoneBookData);
+
+        showPersonDetails(null);
+
+        tableUsers.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showPersonDetails(newValue));
+    }
+
+    @FXML
+    private void handleDeletePerson() {
+        int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
+        tableUsers.getItems().remove(selectedIndex);
+        ContactPhone contactPhone = new ContactPhoneImpl();
+        contactPhone.remove(new Contact("sdsdsd","sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX))));
+        contactPhone.save("output.csv");
     }
 
 
@@ -55,14 +69,14 @@ public class Controller {
         Contact contact = new Contact("sdsdsd","sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX)));
         Contact contact2 = new Contact("sdsfgfgfdsd","fgfgfg", Collections.singletonList(new Phone("4545", PhoneType.FAX)));
         Contact contact3 = new Contact("sdsfsdfsgsggfgfdsd","fgfdsfsdfsdfsgfg", Collections.singletonList(new Phone("3232", PhoneType.HOME_PHONE)));
+        Contact contact4 = new Contact("Julia","Oleynik", Collections.singletonList(new Phone("000000", PhoneType.HOME_PHONE)));
         contactPhone.add(contact);
         contactPhone.add(contact2);
         contactPhone.add(contact3);
+        contactPhone.add(contact4);
         contactPhone.save("output.csv");
 
         phoneBookData.add(contact);
-
-
 
 
 //        contactPhone.add(contact);
@@ -70,48 +84,38 @@ public class Controller {
 //        contactPhone.remove(contact);
 //        contactPhone.save("output.csv");
 
-        List<String> texts = new ArrayList<>();
-        String[] allText = new String[0];
-        try(BufferedReader br = new BufferedReader(new FileReader("output.csv"))) {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
-            }
-
+        try{
             File csv = new File("output.csv");
             CSVParser parser = CSVParser.parse(csv, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
             List<CSVRecord> list = parser.getRecords();
 
             for (CSVRecord s: list){
+                Contact contactTestWithFile = new Contact(
+                        s.get(0).split(";")[0],
+                        s.get(0).split(";")[1],
+                        Collections.singletonList(new Phone(s.get(0).split(";")[2]+s.get(1), null))
+                );
+                phoneBookData.add(contactTestWithFile);
             }
 
-            String everything = sb.toString();
-            allText = everything.replace("\r","").split("\n");
-            for (int i = 0; i<allText.length; i++){
-                String[] allTexts = allText[i].split(";");
-                for (int j = 0; j<allTexts.length; j++){
-                    texts.add(allTexts[j]);
-                }
-            }
         } catch (IOException e) {
 
             e.printStackTrace();
         }
 
-        for (int i = 0; i<allText.length; i++){
-            for (String s: texts){
-                Contact contactTestWithFile = new Contact(s,s, Collections.singletonList(new Phone(s, PhoneType.FAX)));
-                phoneBookData.add(contactTestWithFile);
-            }
-
-        }
-
-
     }
 
+    private void showPersonDetails(Contact contact) {
+        if (contact != null) {
+            firstNameColumn.setText(contact.getFirstName());
+            lastNameColumn.setText(contact.getLastName());
+            phonesColumn.setText(String.valueOf(contact.getPhone()));
+
+        } else {
+            firstNameColumn.setText("");
+            lastNameColumn.setText("");
+            phonesColumn.setText("");
+        }
+    }
 
 }
