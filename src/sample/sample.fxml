@@ -26,9 +26,9 @@
                <children>
                   <TableView fx:id="tableUsers" prefHeight="398.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="firstNameColumn" prefWidth="69.0" text="First Name" />
-                      <TableColumn fx:id="lastNameColumn" prefWidth="65.0" text="Last Name" />
-                        <TableColumn fx:id="phonesColumn" prefWidth="65.0" text="Phone" />
+                      <TableColumn fx:id="firstNameColumn" prefWidth="45.0" text="First Name" />
+                      <TableColumn fx:id="lastNameColumn" prefWidth="46.0" text="Last Name" />
+                        <TableColumn fx:id="phonesColumn" prefWidth="61.0" text="Phone" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
@@ -46,9 +46,9 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField GridPane.columnIndex="1" fx:id="firstNameField" promptText="First Name"/>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="lastNameField" promptText="Last Name"/>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="phoneField" promptText="Phone Data"/>
+                        <TextField fx:id="firstNameField" promptText="First Name" GridPane.columnIndex="1" />
+                        <TextField fx:id="lastNameField" promptText="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="phoneField" promptText="Phone Data" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label prefHeight="17.0" prefWidth="95.0" text="Enter first name" />
                         <Label prefHeight="17.0" prefWidth="91.0" text="Enter last name" GridPane.rowIndex="1" />
                         <Label prefHeight="17.0" prefWidth="90.0" text="Enter phone" GridPane.rowIndex="2" />
@@ -56,7 +56,7 @@
                   </GridPane>
                   <HBox alignment="BOTTOM_RIGHT" layoutY="340.0" prefHeight="58.0" prefWidth="392.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0">
                      <children>
-                        <Button layoutX="222.0" layoutY="359.0" mnemonicParsing="false" text="Add" onAction="#addContact">
+                        <Button layoutX="222.0" layoutY="359.0" mnemonicParsing="false" onAction="#addContact" text="Add">
                            <HBox.margin>
                               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin></Button>

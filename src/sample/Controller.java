@@ -19,7 +19,9 @@ import service.impl.ContactPhoneImpl;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,19 +63,19 @@ public class Controller {
 
 
     private void initData() {
-        ContactPhone contactPhone = new ContactPhoneImpl();
-
-        Contact contact = new Contact("sdsdsd", "sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX)));
-        Contact contact2 = new Contact("sdsfgfgfdsd", "fgfgfg", Collections.singletonList(new Phone("4545", PhoneType.FAX)));
-        Contact contact3 = new Contact("sdsfsdfsgsggfgfdsd", "fgfdsfsdfsdfsgfg", Collections.singletonList(new Phone("3232", PhoneType.HOME_PHONE)));
-        Contact contact4 = new Contact("Julia", "Oleynik", Collections.singletonList(new Phone("000000", PhoneType.HOME_PHONE)));
-        contactPhone.add(contact);
-        contactPhone.add(contact2);
-        contactPhone.add(contact3);
-        contactPhone.add(contact4);
-        contactPhone.save("output.csv");
-
-        phoneBookData.add(contact);
+//        ContactPhone contactPhone = new ContactPhoneImpl();
+//
+//        Contact contact = new Contact("sdsdsd", "sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX)));
+//        Contact contact2 = new Contact("sdsfgfgfdsd", "fgfgfg", Collections.singletonList(new Phone("4545", PhoneType.FAX)));
+//        Contact contact3 = new Contact("sdsfsdfsgsggfgfdsd", "fgfdsfsdfsdfsgfg", Collections.singletonList(new Phone("3232", PhoneType.HOME_PHONE)));
+//        Contact contact4 = new Contact("Julia", "Oleynik", Collections.singletonList(new Phone("000000", PhoneType.HOME_PHONE)));
+//        contactPhone.add(contact);
+//        contactPhone.add(contact2);
+//        contactPhone.add(contact3);
+//        contactPhone.add(contact4);
+//        contactPhone.save("output.csv");
+//        phoneBookData.add(contact);
+//        contactPhone.save("output.csv");
 
         try {
             File csv = new File("output.csv");
@@ -84,7 +86,12 @@ public class Controller {
                 Contact contactTestWithFile = new Contact(
                         s.get(0).split(";")[0],
                         s.get(0).split(";")[1],
-                        Collections.singletonList(new Phone(s.get(0).split(";")[2] + s.get(1), null))
+                        Collections.singletonList(
+                                new Phone(
+                                        s.get(0).split(";")[2].replace("[number:", "") +
+                                                s.get(1).replace("]",""),
+                                        null)
+                        )
                 );
                 phoneBookData.add(contactTestWithFile);
             }

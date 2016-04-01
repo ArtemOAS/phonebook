@@ -81,7 +81,7 @@ public class ContactPhoneImpl implements ContactPhone {
             for (Contact contact: contacts) {
                 result+=contact.getFirstName()+SEPARATOR+
                         contact.getLastName()+SEPARATOR+
-                        contact.getPhone().get(0)+"\n";
+                        contact.getPhone()+"\n";
             }
         }
         return result;

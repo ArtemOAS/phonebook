@@ -51,9 +51,7 @@ public class Phone {
 
     @Override
     public String toString() {
-        return "Phone{" +
-                "number='" + number + '\'' +
-                ", phoneType=" + phoneType +
-                '}';
+        return  "number: " + number +
+                ", type: " + phoneType;
     }
 }
