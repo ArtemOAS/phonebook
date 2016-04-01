@@ -60,7 +60,7 @@ public class Controller {
         int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
         tableUsers.getItems().remove(selectedIndex);
         ContactPhone contactPhone = new ContactPhoneImpl();
-        contactPhone.remove(new Contact("sdsdsd","sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX))));
+        contactPhone.remove(new Contact("sdsdsd", "sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX))));
         contactPhone.save("output.csv");
     }
 
@@ -68,10 +68,10 @@ public class Controller {
     private void initData() {
         ContactPhone contactPhone = new ContactPhoneImpl();
 
-        Contact contact = new Contact("sdsdsd","sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX)));
-        Contact contact2 = new Contact("sdsfgfgfdsd","fgfgfg", Collections.singletonList(new Phone("4545", PhoneType.FAX)));
-        Contact contact3 = new Contact("sdsfsdfsgsggfgfdsd","fgfdsfsdfsdfsgfg", Collections.singletonList(new Phone("3232", PhoneType.HOME_PHONE)));
-        Contact contact4 = new Contact("Julia","Oleynik", Collections.singletonList(new Phone("000000", PhoneType.HOME_PHONE)));
+        Contact contact = new Contact("sdsdsd", "sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX)));
+        Contact contact2 = new Contact("sdsfgfgfdsd", "fgfgfg", Collections.singletonList(new Phone("4545", PhoneType.FAX)));
+        Contact contact3 = new Contact("sdsfsdfsgsggfgfdsd", "fgfdsfsdfsdfsgfg", Collections.singletonList(new Phone("3232", PhoneType.HOME_PHONE)));
+        Contact contact4 = new Contact("Julia", "Oleynik", Collections.singletonList(new Phone("000000", PhoneType.HOME_PHONE)));
         contactPhone.add(contact);
         contactPhone.add(contact2);
         contactPhone.add(contact3);
@@ -86,16 +86,16 @@ public class Controller {
 //        contactPhone.remove(contact);
 //        contactPhone.save("output.csv");
 
-        try{
+        try {
             File csv = new File("output.csv");
             CSVParser parser = CSVParser.parse(csv, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
             List<CSVRecord> list = parser.getRecords();
 
-            for (CSVRecord s: list){
+            for (CSVRecord s : list) {
                 Contact contactTestWithFile = new Contact(
                         s.get(0).split(";")[0],
                         s.get(0).split(";")[1],
-                        Collections.singletonList(new Phone(s.get(0).split(";")[2]+s.get(1), null))
+                        Collections.singletonList(new Phone(s.get(0).split(";")[2] + s.get(1), null))
                 );
                 phoneBookData.add(contactTestWithFile);
             }
@@ -120,18 +120,24 @@ public class Controller {
         }
     }
 
-    @FXML private TableView<Contact> tableView;
-    @FXML private TextField firstNameField;
-    @FXML private TextField lastNameField;
-    @FXML private TextField phoneField;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField phoneField;
 
     @FXML
     protected void addContact(ActionEvent event) {
-        ObservableList<Contact> data = tableUsers.getItems();
-        data.add(new Contact(firstNameColumn.getText(),
+        ContactPhone contactPhone = new ContactPhoneImpl();
+        Contact contactAdd = new Contact(firstNameColumn.getText(),
                 lastNameField.getText(),
-                Collections.singletonList(new Phone(phoneField.getText(), PhoneType.HOME_PHONE))
-        ));
+                Collections.singletonList(new Phone(phoneField.getText(), PhoneType.HOME_PHONE)));
+
+        ObservableList<Contact> data = tableUsers.getItems();
+        data.add(contactAdd);
+        contactPhone.add(contactAdd);
+        contactPhone.save("output.csv");
 
         firstNameField.setText("");
         lastNameField.setText("");
