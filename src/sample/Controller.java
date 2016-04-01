@@ -5,9 +5,11 @@ import data.Phone;
 import data.PhoneType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -118,4 +120,21 @@ public class Controller {
         }
     }
 
+    @FXML private TableView<Contact> tableView;
+    @FXML private TextField firstNameField;
+    @FXML private TextField lastNameField;
+    @FXML private TextField phoneField;
+
+    @FXML
+    protected void addContact(ActionEvent event) {
+        ObservableList<Contact> data = tableUsers.getItems();
+        data.add(new Contact(firstNameColumn.getText(),
+                lastNameField.getText(),
+                Collections.singletonList(new Phone(phoneField.getText(), PhoneType.HOME_PHONE))
+        ));
+
+        firstNameField.setText("");
+        lastNameField.setText("");
+        phoneField.setText("");
+    }
 }
