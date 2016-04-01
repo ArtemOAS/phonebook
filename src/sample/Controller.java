@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Controller {
 
@@ -50,33 +51,10 @@ public class Controller {
         phonesColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("phone"));
 
         tableUsers.setItems(phoneBookData);
-    }
 
-    @FXML
-    private void handleDeletePerson() {
-        int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
-        tableUsers.getItems().remove(selectedIndex);
-        ContactPhone contactPhone = new ContactPhoneImpl();
-        contactPhone.remove(new Contact("sdsdsd", "sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX))));
-        contactPhone.save("output.csv");
     }
-
 
     private void initData() {
-//        ContactPhone contactPhone = new ContactPhoneImpl();
-//
-//        Contact contact = new Contact("sdsdsd", "sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX)));
-//        Contact contact2 = new Contact("sdsfgfgfdsd", "fgfgfg", Collections.singletonList(new Phone("4545", PhoneType.FAX)));
-//        Contact contact3 = new Contact("sdsfsdfsgsggfgfdsd", "fgfdsfsdfsdfsgfg", Collections.singletonList(new Phone("3232", PhoneType.HOME_PHONE)));
-//        Contact contact4 = new Contact("Julia", "Oleynik", Collections.singletonList(new Phone("000000", PhoneType.HOME_PHONE)));
-//        contactPhone.add(contact);
-//        contactPhone.add(contact2);
-//        contactPhone.add(contact3);
-//        contactPhone.add(contact4);
-//        contactPhone.save("output.csv");
-//        phoneBookData.add(contact);
-//        contactPhone.save("output.csv");
-
         try {
             File csv = new File("output.csv");
             CSVParser parser = CSVParser.parse(csv, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
@@ -96,11 +74,48 @@ public class Controller {
                 phoneBookData.add(contactTestWithFile);
             }
 
-        } catch (IOException e) {
-
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField phoneField;
+
+
+
+    @FXML
+    protected void addContact(ActionEvent event) {
+        ContactPhone contactPhone = new ContactPhoneImpl();
+        Contact contactAdd = new Contact(
+                firstNameField.getText(),
+                lastNameField.getText(),
+                Collections.singletonList(new Phone(phoneField.getText(), PhoneType.HOME_PHONE))
+        );
+        ObservableList<Contact> data = tableUsers.getItems();
+        data.add(contactAdd);
+        for (Contact contact : data) {
+            contactPhone.add(contact);
+        }
+        contactPhone.save("output.csv");
+
+        firstNameField.setText("");
+        lastNameField.setText("");
+        phoneField.setText("");
+    }
+
+
+    @FXML
+    private void handleDeletePerson() {
+        ContactPhone contactPhone = new ContactPhoneImpl();
+        int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
+        tableUsers.getItems().remove(selectedIndex-1);
+        contactPhone.save("output.csv");
     }
 
     private void showPersonDetails(Contact contact) {
@@ -113,30 +128,5 @@ public class Controller {
             lastNameColumn.setText("");
             phonesColumn.setText("");
         }
-    }
-
-    @FXML
-    private TextField firstNameField;
-    @FXML
-    private TextField lastNameField;
-    @FXML
-    private TextField phoneField;
-
-    @FXML
-    protected void addContact(ActionEvent event) {
-        ContactPhone contactPhone = new ContactPhoneImpl();
-        Contact contactAdd = new Contact(
-                firstNameField.getText(),
-                lastNameField.getText(),
-                Collections.singletonList(new Phone(phoneField.getText(), PhoneType.HOME_PHONE)));
-
-        ObservableList<Contact> data = tableUsers.getItems();
-        data.add(contactAdd);
-        contactPhone.add(contactAdd);
-        contactPhone.save("output.csv");
-
-        firstNameField.setText("");
-        lastNameField.setText("");
-        phoneField.setText("");
     }
 }
