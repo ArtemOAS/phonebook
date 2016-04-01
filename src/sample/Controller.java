@@ -66,25 +66,19 @@ public class Controller {
 
 
     private void initData() {
-        ContactPhone contactPhone = new ContactPhoneImpl();
-
-        Contact contact = new Contact("sdsdsd", "sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX)));
-        Contact contact2 = new Contact("sdsfgfgfdsd", "fgfgfg", Collections.singletonList(new Phone("4545", PhoneType.FAX)));
-        Contact contact3 = new Contact("sdsfsdfsgsggfgfdsd", "fgfdsfsdfsdfsgfg", Collections.singletonList(new Phone("3232", PhoneType.HOME_PHONE)));
-        Contact contact4 = new Contact("Julia", "Oleynik", Collections.singletonList(new Phone("000000", PhoneType.HOME_PHONE)));
-        contactPhone.add(contact);
-        contactPhone.add(contact2);
-        contactPhone.add(contact3);
-        contactPhone.add(contact4);
-        contactPhone.save("output.csv");
-
-        phoneBookData.add(contact);
-
-
+//        ContactPhone contactPhone = new ContactPhoneImpl();
+//
+//        Contact contact = new Contact("sdsdsd", "sadsdsds", Collections.singletonList(new Phone("555", PhoneType.FAX)));
+//        Contact contact2 = new Contact("sdsfgfgfdsd", "fgfgfg", Collections.singletonList(new Phone("4545", PhoneType.FAX)));
+//        Contact contact3 = new Contact("sdsfsdfsgsggfgfdsd", "fgfdsfsdfsdfsgfg", Collections.singletonList(new Phone("3232", PhoneType.HOME_PHONE)));
+//        Contact contact4 = new Contact("Julia", "Oleynik", Collections.singletonList(new Phone("000000", PhoneType.HOME_PHONE)));
 //        contactPhone.add(contact);
-//        contactPhone.add(contact1);
-//        contactPhone.remove(contact);
+//        contactPhone.add(contact2);
+//        contactPhone.add(contact3);
+//        contactPhone.add(contact4);
 //        contactPhone.save("output.csv");
+//
+//        phoneBookData.add(contact);
 
         try {
             File csv = new File("output.csv");
@@ -112,7 +106,6 @@ public class Controller {
             firstNameColumn.setText(contact.getFirstName());
             lastNameColumn.setText(contact.getLastName());
             phonesColumn.setText(String.valueOf(contact.getPhone()));
-
         } else {
             firstNameColumn.setText("");
             lastNameColumn.setText("");
@@ -130,7 +123,8 @@ public class Controller {
     @FXML
     protected void addContact(ActionEvent event) {
         ContactPhone contactPhone = new ContactPhoneImpl();
-        Contact contactAdd = new Contact(firstNameColumn.getText(),
+        Contact contactAdd = new Contact(
+                firstNameField.getText(),
                 lastNameField.getText(),
                 Collections.singletonList(new Phone(phoneField.getText(), PhoneType.HOME_PHONE)));
 
