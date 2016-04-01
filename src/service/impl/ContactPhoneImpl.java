@@ -67,7 +67,8 @@ public class ContactPhoneImpl implements ContactPhone {
                     PrintWriter pw = new PrintWriter(oos);
             ){
                 pw.println(convertToCSV(collection));
-                pw.flush();}
+                pw.flush();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,7 +81,7 @@ public class ContactPhoneImpl implements ContactPhone {
             for (Contact contact: contacts) {
                 result+=contact.getFirstName()+SEPARATOR+
                         contact.getLastName()+SEPARATOR+
-                        contact.getPhone()+"\n";
+                        contact.getPhone().get(0)+"\n";
             }
         }
         return result;

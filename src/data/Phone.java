@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Phone {
     private String number;
-    PhoneType phoneType;
+    private PhoneType phoneType;
 
     public Phone(String number, PhoneType phoneType) {
         this.number = number;
