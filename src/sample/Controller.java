@@ -6,7 +6,6 @@ import data.PhoneType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,9 +49,6 @@ public class Controller {
 
     private ObservableList<Contact> phoneBookData = FXCollections.observableArrayList();
     private ObservableList<Contact> filteredData = FXCollections.observableArrayList();
-
-
-
 
     @FXML
     private void initialize() {
@@ -132,16 +128,6 @@ public class Controller {
         }
 
     }
-
-/*    public Controller() {
-        phoneBookData.addListener(new ListChangeListener<Contact>() {
-            @Override
-            public void onChanged(ListChangeListener.Change<? extends Contact> change) {
-                updateFilteredData();
-            }
-        });
-        filteredData.addAll(phoneBookData);
-    }*/
 
     @FXML
     private TextField firstNameField;
