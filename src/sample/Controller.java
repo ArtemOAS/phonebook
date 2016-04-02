@@ -111,7 +111,11 @@ public class Controller {
     private void deleteContact(ActionEvent event) {
         ContactPhone contactPhone = new ContactPhoneImpl();
         int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
-        tableUsers.getItems().remove(selectedIndex);
+        ObservableList<Contact> data = tableUsers.getItems();
+        data.remove(selectedIndex);
+        for (Contact c: data){
+            contactPhone.add(c);
+        }
         contactPhone.save("output.csv");
     }
 
