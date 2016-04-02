@@ -15,13 +15,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import service.ContactPhone;
-import service.exception.WrongDestinationException;
 import service.impl.ContactPhoneImpl;
 
-import java.io.*;
-import java.lang.reflect.Array;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public class Controller {
 
@@ -64,7 +64,7 @@ public class Controller {
                         Collections.singletonList(
                                 new Phone(
                                         s.get(0).split(";")[2].replace("[number:", "") +
-                                                s.get(1).replace("]",""),
+                                                s.get(1).replace("]", ""),
                                         null)
                         )
                 );
@@ -74,17 +74,16 @@ public class Controller {
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
             System.out.println("List is empty");
         }
-
     }
 
     @FXML
     private TextField firstNameField;
+
     @FXML
     private TextField lastNameField;
+
     @FXML
     private TextField phoneField;
-
-
 
     @FXML
     protected void addContact(ActionEvent event) {
@@ -113,12 +112,11 @@ public class Controller {
         int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
         ObservableList<Contact> data = tableUsers.getItems();
         data.remove(selectedIndex);
-        for (Contact c: data){
+        for (Contact c : data) {
             contactPhone.add(c);
         }
         contactPhone.save("output.csv");
     }
-
 
 
 }

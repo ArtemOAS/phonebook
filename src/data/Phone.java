@@ -1,10 +1,5 @@
 package data;
 
-import java.util.List;
-
-/**
- * Created by Artem on 28.02.2016.
- */
 public class Phone {
     private String number;
     private PhoneType phoneType;
