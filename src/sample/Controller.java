@@ -114,19 +114,8 @@ public class Controller {
     private void handleDeletePerson() {
         ContactPhone contactPhone = new ContactPhoneImpl();
         int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
-        tableUsers.getItems().remove(selectedIndex-1);
+        tableUsers.getItems().remove(selectedIndex);
         contactPhone.save("output.csv");
     }
 
-    private void showPersonDetails(Contact contact) {
-        if (contact != null) {
-            firstNameColumn.setText(contact.getFirstName());
-            lastNameColumn.setText(contact.getLastName());
-            phonesColumn.setText(String.valueOf(contact.getPhone()));
-        } else {
-            firstNameColumn.setText("");
-            lastNameColumn.setText("");
-            phonesColumn.setText("");
-        }
-    }
 }

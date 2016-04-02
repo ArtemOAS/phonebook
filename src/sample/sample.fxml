@@ -26,9 +26,9 @@
                <children>
                   <TableView fx:id="tableUsers" prefHeight="398.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="firstNameColumn" prefWidth="45.0" text="First Name" />
-                      <TableColumn fx:id="lastNameColumn" prefWidth="46.0" text="Last Name" />
-                        <TableColumn fx:id="phonesColumn" prefWidth="61.0" text="Phone" />
+                      <TableColumn fx:id="firstNameColumn" prefWidth="70.0" text="First Name" />
+                      <TableColumn fx:id="lastNameColumn" prefWidth="66.0" text="Last Name" />
+                        <TableColumn fx:id="phonesColumn" prefWidth="63.0" text="Phone" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
