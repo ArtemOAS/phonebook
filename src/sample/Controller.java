@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,6 +23,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Controller {
     String pathToFile = "output.csv";
@@ -87,9 +90,16 @@ public class Controller {
 
     @FXML
     protected void addContact(ActionEvent event) {
+        String regexForText = "^[a-zA-Z]+$";
+        String regexForNumber = "^[0-9]+$";
         ContactPhone contactPhone = new ContactPhoneImpl();
         String phoneNumber = phoneField.getText().split(",")[0];
         String phoneTypeNumber = phoneField.getText().split(",")[1];
+
+        test(firstNameField.getText(), regexForText);
+        test(lastNameField.getText(), regexForText);
+        test(phoneNumber, regexForNumber);
+
         Contact contactAdd = new Contact(
                 firstNameField.getText(),
                 lastNameField.getText(),
@@ -107,6 +117,18 @@ public class Controller {
         phoneField.setText("");
     }
 
+    private static boolean testText(String testString, String regex){
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(testString);
+        return m.matches();
+    }
+
+    private void test(String text, String regex){
+        if (testText(text, regex)){
+        }else {
+            Alert.AlertType.valueOf("Enter correct text");
+        }
+    }
 
     @FXML
     private void deleteContact(ActionEvent event) {
