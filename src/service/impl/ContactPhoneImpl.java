@@ -55,6 +55,7 @@ public class ContactPhoneImpl implements ContactPhone {
     @Override
     public void write(String path, Map collection) {
         File file = new File(path);
+        file.delete();
         if(file.isDirectory()){
             throw new WrongDestinationException("Can't write to "+ path);
         }

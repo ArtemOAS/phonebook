@@ -63,9 +63,8 @@ public class Controller {
                         s.get(0).split(";")[1],
                         Collections.singletonList(
                                 new Phone(
-                                        s.get(0).split(";")[2].replace("[number:", "") +
-                                                s.get(1).replace("]", ""),
-                                        null)
+                                        s.get(0).split(";")[2].replace("[number:", ""),
+                                        PhoneType.valueOf(s.get(1).replace("type:","").replace("]","").replace(" ","")))
                         )
                 );
                 phoneBookData.add(contactTestWithFile);
