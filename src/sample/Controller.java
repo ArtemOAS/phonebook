@@ -6,6 +6,7 @@ import data.PhoneType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,10 +33,6 @@ import java.util.regex.Pattern;
 public class Controller {
     String pathToFile = "output.csv";
 
-    private ObservableList<Contact> phoneBookData = FXCollections.observableArrayList();
-
-    private ObservableList<Contact> filteredData = FXCollections.observableArrayList();
-
     @FXML
     private TextField filterField;
 
@@ -51,6 +48,11 @@ public class Controller {
     @FXML
     private TableColumn<Contact, String> phonesColumn;
 
+    private ObservableList<Contact> phoneBookData = FXCollections.observableArrayList();
+    private ObservableList<Contact> filteredData = FXCollections.observableArrayList();
+
+
+
 
     @FXML
     private void initialize() {
@@ -60,8 +62,8 @@ public class Controller {
         phonesColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("phone"));
         tableUsers.setItems(phoneBookData);
         updateFilteredData();
-
         tableUsers.setItems(filteredData);
+
         filterField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
@@ -107,6 +109,7 @@ public class Controller {
     }
 
     private void initData() {
+
         try {
             File csv = new File(pathToFile);
             CSVParser parser = CSVParser.parse(csv, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
@@ -124,11 +127,21 @@ public class Controller {
                 );
                 phoneBookData.add(contactTestWithFile);
             }
-
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
             System.out.println("List is empty");
         }
+
     }
+
+/*    public Controller() {
+        phoneBookData.addListener(new ListChangeListener<Contact>() {
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends Contact> change) {
+                updateFilteredData();
+            }
+        });
+        filteredData.addAll(phoneBookData);
+    }*/
 
     @FXML
     private TextField firstNameField;
@@ -201,11 +214,13 @@ public class Controller {
                 lastNameField.getText(),
                 Collections.singletonList(new Phone(phoneNumber, PhoneType.valueOf(phoneTypeNumber)))
         );
+        phoneBookData.removeAll(phoneBookData);
         ObservableList<Contact> data = tableUsers.getItems();
         data.add(contactAdd);
         for (Contact contact : data) {
             contactPhone.add(contact);
         }
+        phoneBookData.addAll(data);
         contactPhone.save(pathToFile);
 
         firstNameField.setText("");
@@ -236,11 +251,13 @@ public class Controller {
     private void deleteContact(ActionEvent event) {
         ContactPhone contactPhone = new ContactPhoneImpl();
         int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
+        phoneBookData.removeAll(phoneBookData);
         ObservableList<Contact> data = tableUsers.getItems();
         data.remove(selectedIndex);
-        for (Contact c : data) {
-            contactPhone.add(c);
+        for (Contact contact : data) {
+            contactPhone.add(contact);
         }
+        phoneBookData.addAll(data);
         contactPhone.save(pathToFile);
     }
 }
