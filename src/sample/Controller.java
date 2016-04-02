@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Controller {
+    String pathToFile = "output.csv";
 
     private ObservableList<Contact> phoneBookData = FXCollections.observableArrayList();
 
@@ -53,7 +54,7 @@ public class Controller {
 
     private void initData() {
         try {
-            File csv = new File("output.csv");
+            File csv = new File(pathToFile);
             CSVParser parser = CSVParser.parse(csv, StandardCharsets.UTF_8, CSVFormat.DEFAULT);
             List<CSVRecord> list = parser.getRecords();
 
@@ -87,17 +88,19 @@ public class Controller {
     @FXML
     protected void addContact(ActionEvent event) {
         ContactPhone contactPhone = new ContactPhoneImpl();
+        String phoneNumber = phoneField.getText().split(",")[0];
+        String phoneTypeNumber = phoneField.getText().split(",")[1];
         Contact contactAdd = new Contact(
                 firstNameField.getText(),
                 lastNameField.getText(),
-                Collections.singletonList(new Phone(phoneField.getText(), PhoneType.HOME_PHONE))
+                Collections.singletonList(new Phone(phoneNumber, PhoneType.valueOf(phoneTypeNumber)))
         );
         ObservableList<Contact> data = tableUsers.getItems();
         data.add(contactAdd);
         for (Contact contact : data) {
             contactPhone.add(contact);
         }
-        contactPhone.save("output.csv");
+        contactPhone.save(pathToFile);
 
         firstNameField.setText("");
         lastNameField.setText("");
@@ -114,7 +117,7 @@ public class Controller {
         for (Contact c : data) {
             contactPhone.add(c);
         }
-        contactPhone.save("output.csv");
+        contactPhone.save(pathToFile);
     }
 
 
