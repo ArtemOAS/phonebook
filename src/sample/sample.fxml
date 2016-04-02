@@ -20,19 +20,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <SplitPane dividerPositions="0.3394648829431438" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5083612040133779" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane prefHeight="398.0" prefWidth="232.0">
                <children>
                   <TableView fx:id="tableUsers" prefHeight="398.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="firstNameColumn" prefWidth="70.0" text="First Name" />
-                      <TableColumn fx:id="lastNameColumn" prefWidth="66.0" text="Last Name" />
-                        <TableColumn fx:id="phonesColumn" prefWidth="63.0" text="Phone" />
+                      <TableColumn fx:id="lastNameColumn" prefWidth="74.0" text="Last Name" />
+                        <TableColumn fx:id="phonesColumn" prefWidth="156.0" text="Phone" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
-            <AnchorPane>
+            <AnchorPane prefHeight="398.0" prefWidth="344.0">
                <children>
                   <Label layoutX="7.0" layoutY="138.0" prefHeight="25.0" prefWidth="74.0" text="Types: " />
                   <Label layoutX="7.0" layoutY="6.0" prefHeight="17.0" prefWidth="121.0" text="Save Phone Details" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="6.0" />
@@ -55,7 +55,7 @@
                         <Label prefHeight="17.0" prefWidth="105.0" text="Enter phone data" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <HBox alignment="BOTTOM_RIGHT" layoutY="340.0" prefHeight="58.0" prefWidth="392.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0">
+                  <HBox alignment="BOTTOM_RIGHT" layoutX="107.0" layoutY="352.0" prefHeight="46.0" prefWidth="184.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="352.0">
                      <children>
                         <Button layoutX="222.0" layoutY="359.0" mnemonicParsing="false" onAction="#addContact" text="Add">
                            <HBox.margin>
@@ -72,6 +72,12 @@
                      </children>
                   </HBox>
                   <Label layoutX="54.0" layoutY="142.0" prefHeight="17.0" prefWidth="155.0" text="HOME_PHONE, FAX, MOBILE" />
+                  <HBox layoutX="46.0" layoutY="199.0" prefHeight="33.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="24.0" prefWidth="45.0" text="Filter" />
+                        <TextField fx:id="filterField"/>
+                     </children>
+                  </HBox>
                </children></AnchorPane>
          </items>
       </SplitPane>

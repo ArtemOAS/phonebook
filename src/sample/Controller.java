@@ -3,12 +3,15 @@ package sample;
 import data.Contact;
 import data.Phone;
 import data.PhoneType;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -17,14 +20,12 @@ import sample.exception.WrongEnteredValueContactException;
 import service.ContactPhone;
 import service.impl.ContactPhoneImpl;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +33,11 @@ public class Controller {
     String pathToFile = "output.csv";
 
     private ObservableList<Contact> phoneBookData = FXCollections.observableArrayList();
+
+    private ObservableList<Contact> filteredData = FXCollections.observableArrayList();
+
+    @FXML
+    private TextField filterField;
 
     @FXML
     private TableView<Contact> tableUsers;
@@ -52,9 +58,52 @@ public class Controller {
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("lastName"));
         phonesColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("phone"));
-
         tableUsers.setItems(phoneBookData);
+        updateFilteredData();
 
+        tableUsers.setItems(filteredData);
+        filterField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+
+                updateFilteredData();
+            }
+        });
+
+    }
+
+    private void updateFilteredData() {
+        filteredData.clear();
+
+        for (Contact contact : phoneBookData) {
+            if (matchesFilter(contact)) {
+                filteredData.add(contact);
+            }
+        }
+        reapplyTableSortOrder();
+    }
+
+    private boolean matchesFilter(Contact contact) {
+        String filterString = filterField.getText();
+        if (filterString == null || filterString.isEmpty()) {
+            return true;
+        }
+        String lowerCaseFilterString = filterString.toLowerCase();
+
+        if (contact.getFirstName().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+            return true;
+        } else if (contact.getLastName().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void reapplyTableSortOrder() {
+        ArrayList<TableColumn<Contact, ?>> sortOrder = new ArrayList<>(tableUsers.getSortOrder());
+        tableUsers.getSortOrder().clear();
+        tableUsers.getSortOrder().addAll(sortOrder);
     }
 
     private void initData() {
@@ -194,6 +243,4 @@ public class Controller {
         }
         contactPhone.save(pathToFile);
     }
-
-
 }
