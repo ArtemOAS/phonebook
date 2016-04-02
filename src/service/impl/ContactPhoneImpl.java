@@ -55,19 +55,16 @@ public class ContactPhoneImpl implements ContactPhone {
     @Override
     public void write(String path, Map collection) {
         File file = new File(path);
-        file.delete();
         if(file.isDirectory()){
             throw new WrongDestinationException("Can't write to "+ path);
         }
-        try {
-            try(
-                    FileOutputStream fos = new FileOutputStream(path);
-                    ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    PrintWriter pw = new PrintWriter(oos);
-            ){
-                pw.println(convertToCSV(collection));
-                pw.flush();
-            }
+        try (
+                FileWriter fw = new FileWriter(file);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+        ) {
+            pw.println(convertToCSV(collection));
+            pw.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
