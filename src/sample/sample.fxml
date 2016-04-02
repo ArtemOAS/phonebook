@@ -64,7 +64,7 @@
                            <HBox.margin>
                               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button layoutX="326.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" textOverrun="CLIP">
+                        <Button layoutX="326.0" layoutY="359.0" mnemonicParsing="false" onAction="#deleteContact" text="Delete" textOverrun="CLIP">
                            <HBox.margin>
                               <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                            </HBox.margin></Button>

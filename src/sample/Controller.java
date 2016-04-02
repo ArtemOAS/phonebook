@@ -15,16 +15,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import service.ContactPhone;
+import service.exception.WrongDestinationException;
 import service.impl.ContactPhoneImpl;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Controller {
 
@@ -74,8 +71,8 @@ public class Controller {
                 phoneBookData.add(contactTestWithFile);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("List is empty");
         }
 
     }
@@ -111,11 +108,13 @@ public class Controller {
 
 
     @FXML
-    private void handleDeletePerson() {
+    private void deleteContact(ActionEvent event) {
         ContactPhone contactPhone = new ContactPhoneImpl();
         int selectedIndex = tableUsers.getSelectionModel().getSelectedIndex();
         tableUsers.getItems().remove(selectedIndex);
         contactPhone.save("output.csv");
     }
+
+
 
 }
